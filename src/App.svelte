@@ -1,11 +1,16 @@
-<script>
-  import ethers from "ethers";
-	export let name;
-  export let pk = ethers.HDNode.seed("0").private;
+<script lang="typescript">
+  import Uploader from "./Uploader.svelte";
+  export let name: string;
+  export let pk: string;
+  export let image: string;
+  function imageCallback(event: CustomEvent) {
+    image = event.detail;
+	}
 </script>
 
 <main>
-	<h1>Hello {name}!</h1>
+	<h1>Hello {name}</h1>
+  <Uploader on:upload="{imageCallback}"/>
   <p>{pk}</p>
 </main>
 
