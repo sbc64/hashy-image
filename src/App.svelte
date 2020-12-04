@@ -1,19 +1,3 @@
-<script lang="typescript">
-  import Uploader from "./Uploader.svelte";
-  export let name: string;
-  export let pk: string;
-  export let image: string;
-  function imageCallback(event: CustomEvent) {
-    image = event.detail;
-	}
-</script>
-
-<main>
-	<h1>Hello {name}</h1>
-  <Uploader on:upload="{imageCallback}"/>
-  <p>{pk}</p>
-</main>
-
 <style>
 	main {
 		text-align: center;
@@ -35,3 +19,20 @@
 		}
 	}
 </style>
+
+<script lang="typescript">
+  import Uploader from "./Uploader.svelte";
+  import { pHash } from "./hashers";
+  export let name: string;
+  export let pk: string;
+  async function uploadHandler(event: CustomEvent) {
+    pk = await pHash(event.detail as CanvasImageSource)
+	}
+</script>
+
+<main>
+	<h1>Hello {name}</h1>
+  <Uploader on:upload="{uploadHandler}"/>
+  <p>{pk}</p>
+</main>
+

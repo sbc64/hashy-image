@@ -3,14 +3,15 @@
 
 	const dispatch = createEventDispatcher();
 
-  let image: any, fileinput: any;
+	let  image, fileinput;
 	
-	const onFileSelected =(e: any)=> {
+	const onFileSelected =(e: any)=>{
+    let upload = e.target.files[0];
     let reader = new FileReader();
-    reader.readAsDataURL(e.target.files[0]);
-    reader.onload = e => { 
-      dispatch('upload', e.target.result)
+    reader.readAsDataURL(upload);
+    reader.onload = (e: any) => { 
       image = e.target.result
+      dispatch('upload', image)
     };
   }
 	
@@ -37,10 +38,10 @@
       style="display:none"
       type="file"
       accept=".jpg, .jpeg, .png"
-      bind:this={fileinput}
       on:change={ (e)=> {
         onFileSelected(e)
       }}
+      bind:this={fileinput}
     >
 </div>
 

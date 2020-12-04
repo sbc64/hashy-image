@@ -1,4 +1,4 @@
-import { pHash } from "./pHash";
+import pHash from "./pHash";
 
 export {
   pHash,
